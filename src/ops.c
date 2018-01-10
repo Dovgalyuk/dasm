@@ -141,6 +141,7 @@ void v_mnemonic(char *str, MNEMONIC *mne)
     short opidx;
     SYMBOL *symbase;
     int     opsize;
+    long premask = 0;
     
     Csegment->flags |= SF_REF;
     programlabel();
@@ -151,6 +152,8 @@ void v_mnemonic(char *str, MNEMONIC *mne)
 
     for (sym = symbase; sym; sym = sym->next)
     {
+        if (Xdebug)
+            printf("Symbol flags:%x addrmode:%x value:%x\n", sym->flags, sym->addrmode, sym->value);
         if (sym->flags & SYM_UNKNOWN)
         {
             ++Redo;
@@ -168,6 +171,23 @@ void v_mnemonic(char *str, MNEMONIC *mne)
                 sym->addrmode = AM_BITBRAMOD;
         }
     }
+
+    if (mne->flags & MF_PREMASK)
+    {
+        if (sym)
+        {
+            if (!(sym->flags & SYM_UNKNOWN) && sym->value >= 0x100)
+                asmerr( ERROR_ADDRESS_MUST_BE_LT_100, false, NULL );
+            
+            premask = sym->value;
+            sym = sym->next;
+        }
+        else
+        {
+            asmerr( ERROR_NOT_ENOUGH_ARGS, true, NULL );
+        }
+    }
+
     addrmode = sym->addrmode;
     if ((sym->flags & SYM_UNKNOWN) || sym->value >= 0x100)
         opsize = 2;
@@ -229,6 +249,11 @@ void v_mnemonic(char *str, MNEMONIC *mne)
     else
     {
         Gen[0] = opcode;
+    }
+
+    if (mne->flags & MF_PREMASK)
+    {
+        Gen[opidx++] = premask;
     }
     
     switch(addrmode)

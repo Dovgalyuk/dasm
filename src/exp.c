@@ -490,8 +490,8 @@ SYMBOL *eval(const char *str, int wantmode)
             if (Xdebug)
                 printf("STRING: %s\n", cur->string);
         }
-        if (base->addrmode == 0)
-            base->addrmode = AM_BYTEADR;
+        if (cur->addrmode == 0)
+            cur->addrmode = AM_BYTEADR;
     }
 
     if (Argi != Argibase || Opi != Opibase)

@@ -231,6 +231,7 @@ STRLIST {
 
 #define STRLISTSIZE    sizeof(STRLIST *)
 
+#define MF_PREMASK				0x02    /*  has mask argument (prefix byte)    */
 #define MF_IF					0x04
 #define MF_MACRO				0x08
 #define MF_MASK					0x10    /*  has mask argument (byte)    */

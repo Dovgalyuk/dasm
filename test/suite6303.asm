@@ -160,14 +160,14 @@
 	tst	1000	;   7D 03 E8
 	tsta		;   4D
 	tstb		;   5D
-	aim	10	;   71 0A
-	aim	10,x	;   61 0A
-	oim	10	;   72 0A
-	oim	10,x	;   62 0A
-	eim	10	;   75 0A
-	eim	10,x	;   65 0A
-	tim	10	;   7B 0A
-	tim	10,x	;   6B 0A
+	aim	#3,10	;   71 03 0A
+	aim	#3,10,x	;   61 03 0A
+	oim	#3,10	;   72 03 0A
+	oim	#3,10,x	;   62 03 0A
+	eim	#3,10	;   75 03 0A
+	eim	#3,10,x	;   65 03 0A
+	tim	#3,10	;   7B 03 0A
+	tim	#3,10,x	;   6B 03 0A
 	cpx	#1000	;   8C 03 E8
 	cpx	10	;   9C 0A
 	cpx	10,x	;   AC 0A
