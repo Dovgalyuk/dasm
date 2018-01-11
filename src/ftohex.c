@@ -63,10 +63,10 @@ main(int ac, char **av)
     format = atoi(av[1]);
     if (format < 1 || format > 3)
 	exiterr("specify infile format 1, 2, or 3");
-    infile = fopen(av[2], "r");
+    infile = fopen(av[2], "rb");
     if (infile == NULL)
 	exiterr("unable to open input file");
-    outfile = (av[3]) ? fopen(av[3], "w") : stdout;
+    outfile = (av[3]) ? fopen(av[3], "wb") : stdout;
     if (outfile == NULL)
 	exiterr("unable to open output file");
     convert(format, infile, outfile);
